@@ -55,4 +55,6 @@ $(document).ready(function() {
   ctx.fillText('8', 75, 130);
   ctx.fillText('9', 135, 130);
 
+
+
 });
