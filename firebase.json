@@ -1,0 +1,12 @@
+{
+  "firebase": "sudoku-app",
+  "public": "./",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**",
+    ".gitignore",
+    ".git/",
+    "*.md"
+  ]
+}
