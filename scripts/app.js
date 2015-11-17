@@ -1,6 +1,7 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
 var gameData = {};
+gameData['ctx'] = ctx;
 
 $.getJSON("https://vast-wildwood-2439.herokuapp.com/api/easy", function (data) {
   gameData['reqData'] = data;
@@ -21,6 +22,13 @@ function boardSetup() {
     }
     gameData.userBoard.push(newArray);
   }
+}
+
+function drawSelectionBox(ctx) {
+  ctx.fillStyle = "rgb(180,255,177)";
+  var xCord = gameData.selected.x * 60;
+  var yCord = gameData.selected.y * 60;
+  ctx.fillRect(xCord, yCord, 60, 60);
 }
 
 function drawGameLines(ctx) {
@@ -96,6 +104,7 @@ function renderBoard(ctx) {
   ctx.fillStyle = "rgb(255,255,255)";
   ctx.fillRect(0, 0, 540, 540);
 
+  drawSelectionBox(ctx);
   drawGameLines(ctx);
   drawGameNumbers(ctx);
   drawUserNumbers(ctx);
@@ -104,7 +113,7 @@ function renderBoard(ctx) {
 // main game loop
 var main = function() {
   boardSetup();
-  renderBoard(ctx);
+  renderBoard(gameData.ctx);
 
   //request animation frame repeatedly
   // requestAnimationFrame(main);
