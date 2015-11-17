@@ -1,22 +1,20 @@
+var gameBoard;
+
+$(document).ready(function() {
+  $.getJSON("https://vast-wildwood-2439.herokuapp.com/api/easy", function (data) {
+    gameBoard = data;
+  });
+});
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
-
 
 function drawGameBoard(ctx) {
   ctx.fillStyle = "rgb(220,249,255)";
   ctx.fillRect(0, 0, 540, 540);
 
   drawGameLines(ctx);
-
-  ctx.fillStyle = "rgb(35,35,35)";
-  ctx.font = "45px lighter normal monospace";
-  ctx.textBaseline = "hanging";
-  for (var i = 0; i < 9; i++) {
-    for (var j = 0; j < 9; j++) {
-      ctx.fillText(j + 1, (j * 60) + 19, (i * 60) + 12);
-    }
-  }
+  drawGameNumbers(ctx);
 }
 
 function drawGameLines(ctx) {
@@ -58,12 +56,26 @@ function drawGameLines(ctx) {
   }
 }
 
+function drawGameNumbers(ctx) {
+  if (typeof gameBoard != "undefined") {
+    ctx.fillStyle = "rgb(35,35,35)";
+    ctx.font = "45px lighter normal monospace";
+    ctx.textBaseline = "hanging";
+    for (var i = 0; i < 9; i++) {
+      for (var j = 0; j < 9; j++) {
+        if (gameBoard.board[i][j] != null) {
+          ctx.fillText(gameBoard.board[i][j], (j * 60) + 19, (i * 60) + 12);
+        }
+      }
+    }
+  }
+}
 
 // main game loop
 var main = function() {
   drawGameBoard(ctx);
 
-  //request agai
+  //request animation frame repeatedly
   requestAnimationFrame(main);
 }
 
