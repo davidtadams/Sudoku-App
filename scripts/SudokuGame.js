@@ -31,7 +31,7 @@ SudokuGame.prototype.getBoard = function (difficulty) {
   var url = "https://vast-wildwood-2439.herokuapp.com/api/" + difficulty;
   $.getJSON(url, function (data) {
     this.reqData = data;
-    this.renderBoard();
+    // this.renderBoard();
   }.bind(this));
 };
 
@@ -126,4 +126,5 @@ SudokuGame.prototype.renderBoard = function() {
   this.drawOuterLines();
   this.drawGameNumbers();
   this.drawUserNumbers();
+  console.log("render board running.");
 }
