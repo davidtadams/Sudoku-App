@@ -1,5 +1,5 @@
 node_modules
 .DS_Store
 Build
-scripts/jquery.min.js
-scripts/game.min.js
+js/jquery.min.js
+js/game.min.js
