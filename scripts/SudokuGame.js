@@ -11,7 +11,7 @@ function SudokuGame() {
   this.selected = {
     x: 4,
     y: 4,
-    box: 1,
+    box: 5,
     value: null,
     user: null
   }
@@ -174,6 +174,7 @@ SudokuGame.prototype.enterNumber = function(number) {
     }
   }
 }
+
 
 SudokuGame.prototype.deleteNumber = function() {
   if (this.reqData.board[this.selected.y][this.selected.x] == null) {

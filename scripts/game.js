@@ -53,7 +53,6 @@ var main = function() {
   Game.createUserBoard();
   Game.renderBoard();
   Game.getBoard('easy');
-
 }
 
 // play game now
