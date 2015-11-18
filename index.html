@@ -10,8 +10,66 @@
     <script src="js/modernizr.js"></script>
   </head>
   <body>
-    <canvas id="canvas" width="540" height="540"></canvas>
+    <header class="row">
+      <div class="small-4 columns">
+        <h1>Sudoku!</h1>
+      </div>
+      <div class="small-8 columns">
+        <ul class="button-group round">
+          <li><a class="button easy">Easy</a></li>
+          <li><a class="button medium">Medium</a></li>
+          <li><a class="button hard">Hard</a></li>
+        </ul>
+      </div>
+    </header>
 
+    <section class="row">
+      <div class="large-7 columns message">
+        <div data-alert class="alert-box success radius">
+          This is a success alert with a radius.
+          <a href="#" class="close">&times;</a>
+        </div>
+      </div>
+    </section>
+
+    <main class="row">
+      <section class="large-8 columns">
+        <header class="canvas-header">
+          <h4>Puzzle: Easy-1</h4>
+          <h4 class="right">Time: 0:03</h4>
+        </header>
+        <main>
+          <canvas id="canvas" width="540" height="540"></canvas>
+        </main>
+        <footer>
+          <ul class="button-group round">
+            <li><a class="button tiny info">1</a></li>
+            <li><a class="button tiny info">2</a></li>
+            <li><a class="button tiny success">3</a></li>
+            <li><a class="button tiny info">4</a></li>
+            <li><a class="button tiny info">5</a></li>
+            <li><a class="button tiny info">6</a></li>
+            <li><a class="button tiny success">7</a></li>
+            <li><a class="button tiny info">8</a></li>
+            <li><a class="button tiny info">9</a></li>
+          </ul>
+        </footer>
+      </section>
+      <aside class="large-4 columns panel">
+        <p>this will be the control panel</p>
+      </aside>
+    </main>
+
+    <footer class="row">
+      <section class="small-12 columns">
+        <header>
+
+        </header>
+        <main>
+          <p>This will be the instructions</p>
+        </main>
+      </section>
+    </footer>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/foundation.min.js"></script>
