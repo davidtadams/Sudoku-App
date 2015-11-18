@@ -1,7 +1,7 @@
 var Game = new SudokuGame();
 
 //Event Handlers
-$(document).bind("keydown", "up down left right", function(event) {
+$(document).bind("keydown", "up down left right space", function(event) {
   event.preventDefault();
 });
 
@@ -37,6 +37,16 @@ $(document).bind("keydown", "1 2 3 4 5 6 7 8 9", function(event) {
   Game.enterNumber(String.fromCharCode(event.which || event.keycode));
 });
 
+$(document).bind("keydown", "backspace esc del 0 space", function(event) {
+  event.preventDefault();
+  Game.deleteNumber();
+});
+
+$('#canvas').click(function(e) {
+  Game.selected.x = Math.floor(e.offsetX / 60);
+  Game.selected.y = Math.floor(e.offsetY / 60);
+  Game.updateSelected();
+})
 
 // main game loop
 var main = function() {

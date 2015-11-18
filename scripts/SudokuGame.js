@@ -120,6 +120,7 @@ SudokuGame.prototype.drawGameNumbers = function() {
   }
 };
 
+
 SudokuGame.prototype.renderBoard = function() {
   this.ctx.fillStyle = "rgb(255,255,255)";
   this.ctx.fillRect(0, 0, 540, 540);
@@ -130,6 +131,7 @@ SudokuGame.prototype.renderBoard = function() {
   this.drawGameNumbers();
   this.drawUserNumbers();
 }
+
 
 SudokuGame.prototype.updateSelected = function() {
   var userBoardValue = this.userBoard[this.selected.y][this.selected.x];
@@ -164,10 +166,19 @@ SudokuGame.prototype.updateSelected = function() {
   this.selected.box = row + column;
 }
 
+
 SudokuGame.prototype.enterNumber = function(number) {
   if (this.reqData.board[this.selected.y][this.selected.x] == null) {
     if (this.userBoard[this.selected.y][this.selected.x] == null) {
       this.userBoard[this.selected.y][this.selected.x] = number;
+    }
+  }
+}
+
+SudokuGame.prototype.deleteNumber = function() {
+  if (this.reqData.board[this.selected.y][this.selected.x] == null) {
+    if (this.userBoard[this.selected.y][this.selected.x] != null) {
+      this.userBoard[this.selected.y][this.selected.x] = null;
     }
   }
 }
