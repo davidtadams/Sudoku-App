@@ -7,11 +7,13 @@ function SudokuGame() {
   this.userBoard = [],
   this.reqData = null,
   this.ctx = ctx,
+  this.count = 0,
   this.selected = {
-    x: 0,
-    y: 0,
-    value: 0,
-    box: 0
+    x: 4,
+    y: 4,
+    box: 1,
+    value: null,
+    user: null
   }
 }
 
@@ -31,7 +33,6 @@ SudokuGame.prototype.getBoard = function (difficulty) {
   var url = "https://vast-wildwood-2439.herokuapp.com/api/" + difficulty;
   $.getJSON(url, function (data) {
     this.reqData = data;
-    // this.renderBoard();
   }.bind(this));
 };
 
@@ -86,8 +87,8 @@ SudokuGame.prototype.drawOuterLines = function() {
 };
 
 
-SudokuGame.prototype.drawGameNumbers = function() {
-  if (this.userBoard) {
+SudokuGame.prototype.drawUserNumbers = function() {
+  if (this.userBoard.length > 0) {
     this.ctx.fillStyle = "rgb(18,54,161)";
     this.ctx.font = "45px lighter normal monospace";
     this.ctx.textBaseline = "hanging";
@@ -95,6 +96,7 @@ SudokuGame.prototype.drawGameNumbers = function() {
       for (var j = 0; j < 9; j++) {
         if (this.userBoard[i][j] != null) {
           this.ctx.fillText(this.userBoard[i][j], (j * 60) + 19, (i * 60) + 12);
+          this.count += 1;
         }
       }
     }
@@ -102,7 +104,7 @@ SudokuGame.prototype.drawGameNumbers = function() {
 };
 
 
-SudokuGame.prototype.drawUserNumbers = function() {
+SudokuGame.prototype.drawGameNumbers = function() {
   if (this.reqData) {
     this.ctx.fillStyle = "rgb(35,35,35)";
     this.ctx.font = "45px lighter normal monospace";
@@ -111,6 +113,7 @@ SudokuGame.prototype.drawUserNumbers = function() {
       for (var j = 0; j < 9; j++) {
         if (this.reqData.board[i][j] != null) {
           this.ctx.fillText(this.reqData.board[i][j], (j * 60) + 19, (i * 60) + 12);
+          this.count += 1;
         }
       }
     }
@@ -126,5 +129,45 @@ SudokuGame.prototype.renderBoard = function() {
   this.drawOuterLines();
   this.drawGameNumbers();
   this.drawUserNumbers();
-  console.log("render board running.");
+}
+
+SudokuGame.prototype.updateSelected = function() {
+  var userBoardValue = this.userBoard[this.selected.y][this.selected.x];
+  var gameBoardValue = this.reqData.board[this.selected.y][this.selected.x];
+
+  if (userBoardValue != null) {
+    this.selected.value = userBoardValue;
+    this.selected.user = true;
+  }
+  else {
+    this.selected.value = gameBoardValue;
+    this.selected.user = false;
+  }
+
+  var row;
+  var column;
+
+  if (this.selected.x < 3)
+    column = 0;
+  else if (this.selected.x < 6)
+    column = 1;
+  else
+    column = 2;
+
+  if (this.selected.y < 3)
+    row = 1;
+  else if (this.selected.y < 6)
+    row = 4;
+  else
+    row = 7;
+
+  this.selected.box = row + column;
+}
+
+SudokuGame.prototype.enterNumber = function(number) {
+  if (this.reqData.board[this.selected.y][this.selected.x] == null) {
+    if (this.userBoard[this.selected.y][this.selected.x] == null) {
+      this.userBoard[this.selected.y][this.selected.x] = number;
+    }
+  }
 }
