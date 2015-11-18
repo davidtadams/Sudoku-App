@@ -1,0 +1,28 @@
+{
+  "name": "sudoku-app",
+  "version": "1.0.0",
+  "description": "Interface for playing Sudoku through your browser.",
+  "main": "index.html",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidtadams/Sudoku-App.git"
+  },
+  "keywords": [
+    "sudoku"
+  ],
+  "author": "David Adams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidtadams/Sudoku-App/issues"
+  },
+  "homepage": "https://sudoku-app.firebaseapp.com/"
+}
