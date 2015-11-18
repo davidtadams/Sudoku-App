@@ -1,7 +1,4 @@
-
-
 body {
-  /*padding-top: 10px;*/
   background-color: rgb(223,223,223);
 }
 
@@ -20,4 +17,50 @@ header div.small-8 {
 
 main footer {
   margin-left: 60px;
+}
+
+.panel {
+  width: 350px;
+}
+
+.panel h4 {
+  font-weight: bold;
+}
+
+.panel h6 {
+  font-weight: bold;
+}
+
+.panel a {
+  display: block;
+  width: 150px;
+  margin-left: 40px;
+}
+
+.switch-on {
+  position: absolute;
+  left: -55px;
+  top: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 9px;
+}
+
+.switch-off {
+  position: absolute;
+  left: -25px;
+  top: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 9px;
+}
+
+
+.alert-box {
+  width: 500px;
+}
+
+hr {
+  border: solid #111;
+  border-width: 2px 0 0;
 }

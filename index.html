@@ -24,7 +24,7 @@
     </header>
 
     <section class="row">
-      <div class="large-7 columns message">
+      <div class="large-12 columns message">
         <div data-alert class="alert-box success radius">
           This is a success alert with a radius.
           <a href="#" class="close">&times;</a>
@@ -42,7 +42,7 @@
           <canvas id="canvas" width="540" height="540"></canvas>
         </main>
         <footer>
-          <ul class="button-group round">
+          <ul class="button-group round numbers">
             <li><a class="button tiny info">1</a></li>
             <li><a class="button tiny info">2</a></li>
             <li><a class="button tiny success">3</a></li>
@@ -55,15 +55,37 @@
           </ul>
         </footer>
       </section>
-      <aside class="large-4 columns panel">
-        <p>this will be the control panel</p>
+      <aside class="large-4 columns">
+        <div class="panel">
+          <h4>Control Panel</h4>
+          <h6>Keys:</h6>
+          <ul>
+            <li>Arrow Keys -> Navigate</li>
+            <li>Mouse Clicks -> Navigate</li>
+            <li>1-9 -> Enter Number</li>
+            <li>Back, Esc, Del, 0, Space -> Delete</li>
+          </ul>
+          <h6>Options:</h6>
+          <a class="button small radius">View Solution</a>
+          <a class="button small radius success">Save Game</a>
+          <a class="button small radius alert">Reset Game</a>
+          <div class="switch round">
+            <p>Enable error checking:</p>
+            <input id="on-off" type="checkbox">
+            <label for="on-off">
+              <span class="switch-on">ON</span>
+              <span class="switch-off">OFF</span>
+            </label>
+          </div>
+        </div>
       </aside>
     </main>
 
     <footer class="row">
       <section class="small-12 columns">
         <header>
-
+          <hr>
+          <h1>Instructions</h1>
         </header>
         <main>
           <p>This will be the instructions</p>
