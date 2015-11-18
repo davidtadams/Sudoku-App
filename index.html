@@ -2,12 +2,26 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="scripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/modernizr.js"></script>
   </head>
   <body>
     <canvas id="canvas" width="540" height="540"></canvas>
-    <script src="scripts/game.min.js"></script>
+
+
+
+    <!-- <script src="js/jquery.min.js"></script> -->
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.hotkeys.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/SudokuGame.js"></script>
+    <script src="js/game.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>

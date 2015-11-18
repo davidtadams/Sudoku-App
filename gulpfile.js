@@ -14,7 +14,7 @@ gulp.task('build-moveHTML', function() {
 
 gulp.task('build-moveCSS', function() {
   gulp
-    .src('./*.css')
+    .src('./css/*.css')
     .pipe(gulp.dest('./build'));
 });
 
