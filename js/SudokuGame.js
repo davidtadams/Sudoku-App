@@ -11,6 +11,7 @@ function SudokuGame() {
   this.count = 0,
   this.errorDisplayed = false,
   this.displayAllErrors = false,
+  this.errorChecking = false;
   this.showSolution = false;
   this.finished = false;
   this.difficulty = null,
@@ -35,6 +36,7 @@ SudokuGame.prototype.resetGame = function() {
   this.count = 0;
   this.errorDisplayed = false;
   this.displayAllErrors = false;
+  this.errorChecking = false;
   this.showSolution = false;
   this.finished = false;
   this.selected.x = 4;
@@ -42,6 +44,27 @@ SudokuGame.prototype.resetGame = function() {
   this.selected.box = 5;
   this.selected.value = null;
   this.selected.user = null;
+};
+
+
+SudokuGame.prototype.renderBoard = function() {
+  this.ctx.fillStyle = "rgb(255,255,255)";
+  this.ctx.fillRect(0, 0, 540, 540);
+
+  if (this.displayAllErrors) {
+    this.highlightErrors();
+  }
+  else if (this.errorChecking) {
+    this.checkErrors();
+    this.highlightErrors();
+  }
+  this.drawSelectionBox();
+  this.drawInnerLines();
+  this.drawOuterLines();
+  this.drawGameNumbers();
+  this.drawUserNumbers();
+  this.checkFinished();
+  this.count = 0;
 };
 
 
@@ -190,23 +213,6 @@ SudokuGame.prototype.drawGameNumbers = function() {
 };
 
 
-SudokuGame.prototype.renderBoard = function() {
-  this.ctx.fillStyle = "rgb(255,255,255)";
-  this.ctx.fillRect(0, 0, 540, 540);
-
-  if (this.displayAllErrors) {
-    this.highlightErrors();
-  }
-  this.drawSelectionBox();
-  this.drawInnerLines();
-  this.drawOuterLines();
-  this.drawGameNumbers();
-  this.drawUserNumbers();
-  this.checkFinished();
-  this.count = 0;
-};
-
-
 SudokuGame.prototype.updateSelected = function() {
   var userBoardValue = this.userBoard[this.selected.y][this.selected.x];
   var gameBoardValue = this.reqData.board[this.selected.y][this.selected.x];
@@ -350,6 +356,19 @@ SudokuGame.prototype.checkSolution = function() {
 };
 
 
+SudokuGame.prototype.checkErrors = function() {
+  this.errors = [];
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+      if (this.userBoard[i][j] != this.reqData.solution[i][j]
+                && this.userBoard[i][j] != null) {
+        this.errors.push({ x: j, y: i });
+      }
+    }
+  }
+};
+
+
 SudokuGame.prototype.showMessage = function(status) {
   var message = "";
   var alertType = "";
@@ -398,7 +417,14 @@ SudokuGame.prototype.highlightErrors = function() {
 };
 
 
-
+SudokuGame.prototype.toggleErrorCheck = function() {
+  if (!$('#on-off').is(':checked')) {
+    this.errorChecking = true;
+  }
+  else {
+    this.errorChecking = false;
+  }
+}
 
 
 
@@ -427,4 +453,8 @@ $('.reset-game').click(function() {
 
 $('.view-solution').click(function() {
   Game.viewSolution();
+});
+
+$('.on-off').click(function() {
+  Game.toggleErrorCheck();
 });

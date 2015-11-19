@@ -1,6 +1,6 @@
 var Game = new SudokuGame();
 
-//Event Handlers
+//Key Press Event Handlers / Navigation
 $(document).bind("keydown", "up down left right space", function(event) {
   event.preventDefault();
 });
