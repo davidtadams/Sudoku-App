@@ -1,12 +1,14 @@
 $(document).ready(function() {
   /* This code exists to try and save the timer spot when the user
     closes the browser tab or browser. It also saves the current Game
-    that the user is playing */
+    that the user is playing if they close out of the browser */
   $(window).bind("beforeunload", function() {
-      // var gameSave = {difficulty: Game.difficulty, number: Game.puzNumber};
+    if (Game.timer.seconds > 0) {
       localStorage.setItem('seconds', Game.timer.seconds);
-      // localStorage.setItem('curGame', JSON.stringify(gameSave));
+    }
+    if (Game.difficulty != null) {
       localStorage.setItem('curGame', JSON.stringify(Game));
+    }
   });
 });
 

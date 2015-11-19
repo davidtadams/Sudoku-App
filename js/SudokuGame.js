@@ -390,7 +390,7 @@ SudokuGame.prototype.showMessage = function(msg, type) {
     html += '</div>';
 
     $('.message').empty();
-    $(html).appendTo('.message').delay(6000).fadeOut();
+    $(html).appendTo('.message').delay(5000).fadeOut();
     $(document).foundation('alert', 'reflow');
   }
 };
@@ -468,19 +468,27 @@ SudokuGame.prototype.localLoadGame = function() {
   //update timer from previous state
   var curGameData = JSON.parse(localStorage.getItem('curGame'));
   var savedDifficulty = curGameData.difficulty;
-  var savedPuzNumber = curGameData.number;
+  var savedPuzNumber = curGameData.puzNumber;
 
   //Update dynamic items on page
   $('.puzzle-header').text('Puzzle: ' + this.difficulty + ' #' + this.puzNumber);
   var diffLower = this.difficulty[0].toLowerCase() + this.difficulty.slice(1);
   this.setButtonDifficulty(diffLower);
 
+  console.log('diffs', savedDifficulty, this.difficulty);
+  console.log('nums', savedPuzNumber, this.puzNumber);
+
+  //update timer to state from saved game to restore it
   if (savedDifficulty === this.difficulty
               && savedPuzNumber === this.puzNumber) {
     /* game that was being played when browser closed was same game
       that was saved to local storage, so restore timer */
+      console.log("DOES THIS RUN?");
       var seconds = localStorage.getItem('seconds');
+      console.log('sec1', seconds);
+      console.log('stat1', this.timer.start);
       this.timer.start = Math.floor(Date.parse(new Date()) / 1000) - seconds;
+      console.log('stat2', this.timer.start);
   }
   else {
     /* reset timer back to 0 */
