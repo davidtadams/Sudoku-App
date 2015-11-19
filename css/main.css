@@ -68,3 +68,12 @@ hr {
 .switch label {
   background: #aaa;
 }
+
+.load-buttons {
+  text-align: center;
+}
+
+.load-buttons a {
+  margin-right: 30px;
+  margin-bottom: 0px;
+}

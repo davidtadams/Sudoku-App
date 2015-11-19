@@ -19,7 +19,7 @@ function SudokuGame() {
   this.timer = {
     start: 0,
     seconds: 0,
-    pause: false
+    pause: true
   },
   this.selected = {
     x: 4,
@@ -75,7 +75,8 @@ SudokuGame.prototype.loadDifficulty = function(difficulty) {
   this.resetGame();
 
   //start timer
-  Game.timer.start = Math.floor(Date.parse(new Date()) / 1000);
+  this.timer.pause = false;
+  this.timer.start = Math.floor(Date.parse(new Date()) / 1000);
 };
 
 
@@ -422,6 +423,64 @@ SudokuGame.prototype.localSaveGame = function() {
   localStorage.setItem('game', JSON.stringify(this));
   var message = "Current game state saved successfully.";
   this.showMessage(message, 'success');
+}
+
+
+SudokuGame.prototype.checkSavedGame = function() {
+  if (localStorage['game'] != undefined) {
+    var html = '<div data-alert class="alert-box radius load-message">'
+      + 'You have a game previously saved. Would you like to load '
+      + 'that game and continue it?'
+      + '<div class="load-buttons">'
+      + '<a class="button tiny success yes-load">Yes</a>'
+      + '<a class="button tiny alert no-load">No</a>'
+      + '</div><a href="#" class="close">&times;</a></div>';
+
+    $('.message').empty();
+    $(html).appendTo('.message');
+    $(document).foundation('alert', 'reflow');
+
+    $('.yes-load').click(function() {
+      $('.load-message').fadeOut();
+      this.localLoadGame();
+    }.bind(this));
+
+    $('.no-load').click(function() {
+      $('.load-message').fadeOut();
+      this.loadDifficulty('easy');
+    }.bind(this));
+
+    return true;
+  }
+  return false;
+}
+
+
+SudokuGame.prototype.localLoadGame = function() {
+  var savedGame = JSON.parse(localStorage.getItem('game'));
+  this.difficulty = savedGame.difficulty;
+  this.puzNumber = savedGame.puzNumber;
+  this.reqData = savedGame.reqData;
+  this.timer = savedGame.timer;
+  this.userBoard = savedGame.userBoard;
+
+  //update timer from previous state
+  var curGameData = JSON.parse(localStorage.getItem('curGame'));
+  var savedDifficulty = curGameData.difficulty;
+  var savedPuzNumber = curGameData.number;
+
+  if (savedDifficulty === this.difficulty
+              && savedPuzNumber === this.puzNumber) {
+    /* game that was being played when browser closed was same game
+      that was saved to local storage, so restore timer */
+      var seconds = localStorage.getItem('seconds');
+      this.timer.start = Math.floor(Date.parse(new Date()) / 1000) - seconds;
+  }
+  else {
+    /* reset timer back to 0 */
+    this.timer.seconds = 0;
+    this.timer.start = 0;
+  }
 }
 
 

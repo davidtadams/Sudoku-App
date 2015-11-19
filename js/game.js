@@ -1,3 +1,13 @@
+$(document).ready(function() {
+  /* This code exists to try and save the timer spot when the user
+    closes the browser tab or browser */
+  $(window).bind("beforeunload", function() {
+      var gameSave = {difficulty: Game.difficulty, number: Game.puzNumber};
+      localStorage.setItem('seconds', Game.timer.seconds);
+      localStorage.setItem('curGame', JSON.stringify(gameSave));
+  });
+});
+
 var Game = new SudokuGame();
 
 //Key Press Event Handlers / Navigation
@@ -50,10 +60,14 @@ $('#canvas').click(function(e) {
 
 //create blank user board
 Game.createUserBoard();
+
 //render board
 Game.renderBoard();
-//by default load difficulty easy
-Game.loadDifficulty('easy');
+
+if (!Game.checkSavedGame()) {
+  //by default load difficulty easy unless user chose to load saved game
+  Game.loadDifficulty('easy');
+}
 
 var FPS = 30;
 setInterval(function() {
