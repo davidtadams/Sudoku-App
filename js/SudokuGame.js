@@ -30,25 +30,27 @@ function SudokuGame() {
 
 
 SudokuGame.prototype.resetGame = function() {
-  this.displayAllErrors = false;
   this.count = 0;
+  this.displayAllErrors = false;
   this.showSolution = false;
+  this.finished = false;
   this.selected.x = 4;
   this.selected.y = 4;
   this.selected.box = 5;
   this.selected.value = null;
   this.selected.user = null;
-}
+};
 
 
 SudokuGame.prototype.loadDifficulty = function(difficulty) {
   this.setButtonDifficulty(difficulty);
   this.getBoard(difficulty);
   this.resetUserBoard();
+  this.resetGame();
 
   //start timer
   Game.timer.start = Math.floor(Date.parse(new Date()) / 1000);
-}
+};
 
 SudokuGame.prototype.setButtonDifficulty = function(difficulty) {
   var easy = $('.easy');
@@ -65,7 +67,7 @@ SudokuGame.prototype.setButtonDifficulty = function(difficulty) {
     medium.addClass("disabled");
   else if (difficulty === 'hard')
     hard.addClass("disabled");
-}
+};
 
 
 SudokuGame.prototype.createUserBoard = function() {
@@ -194,7 +196,7 @@ SudokuGame.prototype.renderBoard = function() {
   this.drawGameNumbers();
   this.drawUserNumbers();
   this.checkFinished();
-}
+};
 
 
 SudokuGame.prototype.updateSelected = function() {
@@ -228,7 +230,7 @@ SudokuGame.prototype.updateSelected = function() {
     row = 7;
 
   this.selected.box = row + column;
-}
+};
 
 
 SudokuGame.prototype.enterNumber = function(number) {
@@ -237,7 +239,7 @@ SudokuGame.prototype.enterNumber = function(number) {
       this.userBoard[this.selected.y][this.selected.x] = number;
     }
   }
-}
+};
 
 
 SudokuGame.prototype.deleteNumber = function() {
@@ -246,7 +248,7 @@ SudokuGame.prototype.deleteNumber = function() {
       this.userBoard[this.selected.y][this.selected.x] = null;
     }
   }
-}
+};
 
 
 SudokuGame.prototype.updateTimer = function() {
@@ -267,7 +269,7 @@ SudokuGame.prototype.updateTimer = function() {
 
     $('.time').text('Timer:  ' + minutes + ':' + seconds);
   }
-}
+};
 
 
 SudokuGame.prototype.toggleTimer = function() {
@@ -281,7 +283,7 @@ SudokuGame.prototype.toggleTimer = function() {
     //timer is running and needs to be paused
     this.timer.pause = true;
   }
-}
+};
 
 
 SudokuGame.prototype.resetBoard = function() {
@@ -289,7 +291,8 @@ SudokuGame.prototype.resetBoard = function() {
   this.timer.start = Math.floor(Date.parse(new Date()) / 1000);
   this.timer.seconds = 0;
   this.showSolution = false;
-}
+  this.finished = false;
+};
 
 
 SudokuGame.prototype.viewSolution = function() {
@@ -302,7 +305,7 @@ SudokuGame.prototype.viewSolution = function() {
   }
   this.showMessage('solution');
   this.showSolution = true;
-}
+};
 
 
 SudokuGame.prototype.checkFinished = function() {
@@ -311,6 +314,7 @@ SudokuGame.prototype.checkFinished = function() {
     if (this.checkSolution()) {
       this.showMessage('finished');
       this.finished = true;
+      this.toggleTimer();
     }
     else {
       this.displayAllErrors = true;
@@ -319,7 +323,7 @@ SudokuGame.prototype.checkFinished = function() {
   }
 
   this.count = 0;
-}
+};
 
 
 SudokuGame.prototype.checkSolution = function() {
@@ -331,7 +335,7 @@ SudokuGame.prototype.checkSolution = function() {
     }
   }
   return true;
-}
+};
 
 
 SudokuGame.prototype.showMessage = function(status) {
@@ -365,11 +369,13 @@ SudokuGame.prototype.showMessage = function(status) {
     $('.message').append(html);
     $(document).foundation('alert', 'reflow');
   }
-}
+};
 
 
+SudokuGame.prototype.highlightErrors = function() {
 
 
+};
 
 /* DOM EVENT LISTENERS */
 $('.easy').click(function() {
@@ -394,4 +400,4 @@ $('.reset-game').click(function() {
 
 $('.view-solution').click(function() {
   Game.viewSolution();
-})
+});
