@@ -390,7 +390,7 @@ SudokuGame.prototype.showMessage = function(msg, type) {
     html += '</div>';
 
     $('.message').empty();
-    $(html).appendTo('.message').delay(10000).fadeOut();
+    $(html).appendTo('.message').delay(6000).fadeOut();
     $(document).foundation('alert', 'reflow');
   }
 };
@@ -428,6 +428,7 @@ SudokuGame.prototype.localSaveGame = function() {
 
 SudokuGame.prototype.checkSavedGame = function() {
   if (localStorage['game'] != undefined) {
+    var savedDifficulty = JSON.parse(localStorage.getItem('game'));
     var html = '<div data-alert class="alert-box radius load-message">'
       + 'You have a game previously saved. Would you like to load '
       + 'that game and continue it?'
@@ -468,6 +469,11 @@ SudokuGame.prototype.localLoadGame = function() {
   var curGameData = JSON.parse(localStorage.getItem('curGame'));
   var savedDifficulty = curGameData.difficulty;
   var savedPuzNumber = curGameData.number;
+
+  //Update dynamic items on page
+  $('.puzzle-header').text('Puzzle: ' + this.difficulty + ' #' + this.puzNumber);
+  var diffLower = this.difficulty[0].toLowerCase() + this.difficulty.slice(1);
+  this.setButtonDifficulty(diffLower);
 
   if (savedDifficulty === this.difficulty
               && savedPuzNumber === this.puzNumber) {
