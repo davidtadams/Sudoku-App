@@ -276,7 +276,14 @@ SudokuGame.prototype.resetGame = function() {
 
 
 SudokuGame.prototype.viewSolution = function() {
-
+  console.log(this);
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+      if (this.reqData.board[i][j] == null) {
+        this.userBoard[i][j] = this.reqData.solution[i][j];
+      }
+    }
+  }
 }
 
 
