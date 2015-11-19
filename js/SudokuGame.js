@@ -5,10 +5,12 @@ var ctx = canvas.getContext("2d");
 
 function SudokuGame() {
   this.userBoard = [],
+  this.errors = [],
   this.reqData = null,
   this.ctx = ctx,
   this.count = 0,
   this.errorCheck = false,
+  this.errorDisplayed = false,
   this.displayAllErrors = false,
   this.showSolution = false;
   this.finished = false;
@@ -30,6 +32,7 @@ function SudokuGame() {
 
 
 SudokuGame.prototype.resetGame = function() {
+  this.errors = [];
   this.count = 0;
   this.displayAllErrors = false;
   this.showSolution = false;
@@ -190,12 +193,16 @@ SudokuGame.prototype.renderBoard = function() {
   this.ctx.fillStyle = "rgb(255,255,255)";
   this.ctx.fillRect(0, 0, 540, 540);
 
+  if (this.displayAllErrors) {
+    this.highlightErrors();
+  }
   this.drawSelectionBox();
   this.drawInnerLines();
   this.drawOuterLines();
   this.drawGameNumbers();
   this.drawUserNumbers();
   this.checkFinished();
+  this.count = 0;
 };
 
 
@@ -310,31 +317,35 @@ SudokuGame.prototype.viewSolution = function() {
 
 SudokuGame.prototype.checkFinished = function() {
   if (this.count >= 81 && !this.showSolution && !this.finished) {
-    this.checkSolution();
     if (this.checkSolution()) {
       this.showMessage('finished');
       this.finished = true;
       this.toggleTimer();
+      this.displayAllErrors = false;
     }
     else {
       this.displayAllErrors = true;
-      this.showMessage('error');
+      if (!this.errorDisplayed) {
+        this.showMessage('error');
+      }
     }
   }
-
-  this.count = 0;
 };
 
 
 SudokuGame.prototype.checkSolution = function() {
+  var errorFree = true;
+  this.errors = [];
   for (var i = 0; i < 9; i++) {
-    for (var j = 0; j < 0; j++) {
-      if (this.userBoard[i][j] != this.reqData.solution[i][j]) {
-        return false;
+    for (var j = 0; j < 9; j++) {
+      if (this.userBoard[i][j] != this.reqData.solution[i][j]
+                && this.userBoard[i][j] != null) {
+        errorFree = false;
+        this.errors.push({ x: j, y: i });
       }
     }
   }
-  return true;
+  return errorFree;
 };
 
 
@@ -357,6 +368,7 @@ SudokuGame.prototype.showMessage = function(status) {
     alertType = "alert";
     message = "Oops. There are errors in your answer. You can see what " +
       "cells are wrong below.";
+    this.errorDisplayed = true;
   }
 
   if (message != "" && alertType != "") {
@@ -373,9 +385,23 @@ SudokuGame.prototype.showMessage = function(status) {
 
 
 SudokuGame.prototype.highlightErrors = function() {
+  var xCord;
+  var yCord;
 
-
+  this.ctx.fillStyle = "rgb(255,180,180)";
+  for (var i = 0; i < this.errors.length; i++) {
+    xCord = this.errors[i].x * 60;
+    yCord = this.errors[i].y * 60;
+    this.ctx.fillRect(xCord, yCord, 60, 60);
+  }
 };
+
+
+
+
+
+
+
 
 /* DOM EVENT LISTENERS */
 $('.easy').click(function() {
