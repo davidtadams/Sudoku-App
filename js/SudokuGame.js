@@ -268,21 +268,45 @@ SudokuGame.prototype.toggleTimer = function() {
 }
 
 
+SudokuGame.prototype.resetGame = function() {
+  this.resetUserBoard();
+  this.timer.start = Math.floor(Date.parse(new Date()) / 1000);
+  this.timer.seconds = 0;
+}
+
+
+SudokuGame.prototype.viewSolution = function() {
+
+}
+
+
+
+
+
+
 
 
 /* DOM EVENT LISTENERS */
 $('.easy').click(function() {
   Game.loadDifficulty('easy');
-})
+});
 
 $('.medium').click(function() {
   Game.loadDifficulty('medium');
-})
+});
 
 $('.hard').click(function() {
   Game.loadDifficulty('hard');
-})
+});
 
 $('.time').click(function() {
   Game.toggleTimer();
+});
+
+$('.reset-game').click(function() {
+  Game.resetGame();
+});
+
+$('.view-solution').click(function() {
+  Game.viewSolution();
 })
