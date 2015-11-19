@@ -6,6 +6,7 @@ var ctx = canvas.getContext("2d");
 function SudokuGame() {
   this.userBoard = [],
   this.errors = [],
+  this.numStatus = [0,0,0,0,0,0,0,0,0],
   this.reqData = null,
   this.ctx = ctx,
   this.count = 0,
@@ -33,6 +34,7 @@ function SudokuGame() {
 
 SudokuGame.prototype.resetGame = function() {
   this.errors = [];
+  this.resetNumStatus();
   this.count = 0;
   this.errorDisplayed = false;
   this.displayAllErrors = false;
@@ -64,6 +66,8 @@ SudokuGame.prototype.renderBoard = function() {
   this.drawGameNumbers();
   this.drawUserNumbers();
   this.checkFinished();
+  this.updateStatusBar();
+  this.resetNumStatus();
   this.count = 0;
 };
 
@@ -117,6 +121,12 @@ SudokuGame.prototype.resetUserBoard = function() {
   }
 };
 
+
+SudokuGame.prototype.resetNumStatus = function() {
+  for (var i = 0; i < this.numStatus.length; i++) {
+    this.numStatus[i] = 0;
+  }
+}
 
 SudokuGame.prototype.getBoard = function (difficulty) {
   var url = "https://vast-wildwood-2439.herokuapp.com/api/" + difficulty;
@@ -190,6 +200,7 @@ SudokuGame.prototype.drawUserNumbers = function() {
         if (this.userBoard[i][j] != null) {
           this.ctx.fillText(this.userBoard[i][j], (j * 60) + 19, (i * 60) + 12);
           this.count += 1;
+          this.numStatus[this.userBoard[i][j] - 1] += 1;
         }
       }
     }
@@ -207,6 +218,7 @@ SudokuGame.prototype.drawGameNumbers = function() {
         if (this.reqData.board[i][j] != null) {
           this.ctx.fillText(this.reqData.board[i][j], (j * 60) + 19, (i * 60) + 12);
           this.count += 1;
+          this.numStatus[this.reqData.board[i][j] - 1] += 1;
         }
       }
     }
@@ -496,6 +508,26 @@ SudokuGame.prototype.localLoadGame = function() {
     this.timer.start = 0;
   }
 }
+
+
+SudokuGame.prototype.updateStatusBar = function() {
+  for(var i = 0; i < this.numStatus.length; i++) {
+    var selector = "";
+    if (this.numStatus[i] === 9) {
+      selector = '.number-' + (i + 1);
+      if (!$(selector).hasClass('success')) {
+        $(selector).removeClass('info');
+        $(selector).addClass('success');
+      }
+    }
+    else {
+      $(selector).removeClass('success');
+      $(selector).addClass('info');
+    }
+  }
+}
+
+
 
 
 /* DOM EVENT LISTENERS */
