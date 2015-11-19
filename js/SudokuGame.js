@@ -427,7 +427,10 @@ SudokuGame.prototype.toggleErrorCheck = function() {
 }
 
 
+SudokuGame.prototype.localSaveGame = function() {
+  localStorage.setItem('game', JSON.stringify(this));
 
+}
 
 
 /* DOM EVENT LISTENERS */
@@ -447,12 +450,16 @@ $('.time').click(function() {
   Game.toggleTimer();
 });
 
-$('.reset-game').click(function() {
-  Game.resetBoard();
-});
-
 $('.view-solution').click(function() {
   Game.viewSolution();
+});
+
+$('.save-game').click(function() {
+  Game.localSaveGame();
+});
+
+$('.reset-game').click(function() {
+  Game.resetBoard();
 });
 
 $('.on-off').click(function() {
