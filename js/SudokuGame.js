@@ -8,6 +8,14 @@ function SudokuGame() {
   this.reqData = null,
   this.ctx = ctx,
   this.count = 0,
+  this.errorCheck = false,
+  this.difficulty = null,
+  this.puzNumber = null,
+  this.timer = {
+    start: 0,
+    seconds: 0,
+    pause: false
+  },
   this.selected = {
     x: 4,
     y: 4,
@@ -15,6 +23,33 @@ function SudokuGame() {
     value: null,
     user: null
   }
+}
+
+
+SudokuGame.prototype.loadDifficulty = function(difficulty) {
+  this.setButtonDifficulty(difficulty);
+  this.getBoard(difficulty);
+  this.resetUserBoard();
+
+  //start timer
+  Game.timer.start = Math.floor(Date.parse(new Date()) / 1000);
+}
+
+SudokuGame.prototype.setButtonDifficulty = function(difficulty) {
+  var easy = $('.easy');
+  var medium = $('.medium');
+  var hard = $('.hard');
+
+  easy.removeClass("disabled");
+  medium.removeClass("disabled");
+  hard.removeClass("disabled");
+
+  if (difficulty === 'easy')
+    easy.addClass("disabled");
+  else if (difficulty === 'medium')
+    medium.addClass("disabled");
+  else if (difficulty === 'hard')
+    hard.addClass("disabled");
 }
 
 
@@ -29,10 +64,23 @@ SudokuGame.prototype.createUserBoard = function() {
 };
 
 
+SudokuGame.prototype.resetUserBoard = function() {
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+      this.userBoard[j][i] = null;
+    }
+  }
+};
+
+
 SudokuGame.prototype.getBoard = function (difficulty) {
   var url = "https://vast-wildwood-2439.herokuapp.com/api/" + difficulty;
   $.getJSON(url, function (data) {
     this.reqData = data;
+    this.puzNumber = data.number;
+    this.difficulty = data.difficulty[0].toUpperCase() + data.difficulty.slice(1);
+    //update heading for puzzle
+    $('.puzzle-header').text('Puzzle: ' + this.difficulty + ' #' + this.puzNumber);
   }.bind(this));
 };
 
@@ -183,3 +231,58 @@ SudokuGame.prototype.deleteNumber = function() {
     }
   }
 }
+
+
+SudokuGame.prototype.updateTimer = function() {
+  if (!this.timer.pause) {
+    var now = Math.floor(Date.parse(new Date()) / 1000);
+    this.timer.seconds = now - this.timer.start;
+    var seconds = Math.floor(this.timer.seconds % 60);
+    var minutes = Math.floor((this.timer.seconds/60) % 60);
+
+    if (seconds < 10) {
+      seconds = String(seconds);
+      seconds = '0' + seconds;
+    }
+    if (minutes < 10) {
+      minutes = String(minutes);
+      minutes = '0' + minutes;
+    }
+
+    $('.time').text('Timer:  ' + minutes + ':' + seconds);
+  }
+}
+
+
+SudokuGame.prototype.toggleTimer = function() {
+  if (this.timer.pause) {
+    //timer was already paused, need to start again
+    var now = Math.floor(Date.parse(new Date()) / 1000);
+    this.timer.start = now - this.timer.seconds;
+    this.timer.pause = false;
+  }
+  else {
+    //timer is running and needs to be paused
+    this.timer.pause = true;
+  }
+}
+
+
+
+
+/* DOM EVENT LISTENERS */
+$('.easy').click(function() {
+  Game.loadDifficulty('easy');
+})
+
+$('.medium').click(function() {
+  Game.loadDifficulty('medium');
+})
+
+$('.hard').click(function() {
+  Game.loadDifficulty('hard');
+})
+
+$('.time').click(function() {
+  Game.toggleTimer();
+})

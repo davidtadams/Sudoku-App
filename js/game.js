@@ -50,18 +50,30 @@ $('#canvas').click(function(e) {
 
 // main game loop
 var main = function() {
-  Game.createUserBoard();
-  Game.renderBoard();
-  Game.getBoard('easy');
+  // Game.createUserBoard();
+  // Game.renderBoard();
+  // Game.getBoard('easy');
+  console.log("MAIN");
+  console.log(Game);
 }
 
 // play game now
-main();
+// main();
+
+
+//create blank user board
+Game.createUserBoard();
+//render board
+Game.renderBoard();
+//by default load difficulty easy
+Game.loadDifficulty('easy');
 
 // For debugging
-// window.setTimeout(main, 500);
+// window.setTimeout(main, 5000);
+
 
 var FPS = 30;
 setInterval(function() {
   Game.renderBoard();
+  Game.updateTimer();
 }, 1000/FPS);

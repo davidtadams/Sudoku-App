@@ -16,9 +16,9 @@
       </div>
       <div class="small-8 columns">
         <ul class="button-group round">
-          <li><a class="button easy">Easy</a></li>
-          <li><a class="button medium">Medium</a></li>
-          <li><a class="button hard">Hard</a></li>
+          <li><a class="button easy small disabled">Easy</a></li>
+          <li><a class="button medium small">Medium</a></li>
+          <li><a class="button hard small">Hard</a></li>
         </ul>
       </div>
     </header>
@@ -35,8 +35,8 @@
     <main class="row">
       <section class="large-8 columns">
         <header class="canvas-header">
-          <h4>Puzzle: Easy-1</h4>
-          <h4 class="right">Time: 0:03</h4>
+          <h4 class="puzzle-header">Puzzle:</h4>
+          <h4 class="right time"></h4>
         </header>
         <main>
           <canvas id="canvas" width="540" height="540"></canvas>
@@ -58,7 +58,7 @@
       <aside class="large-4 columns">
         <div class="panel">
           <h4>Control Panel</h4>
-          <h6>Keys:</h6>
+          <h6>Game Controls:</h6>
           <ul>
             <li>Arrow Keys -> Navigate</li>
             <li>Mouse Clicks -> Navigate</li>
@@ -70,7 +70,7 @@
           <a class="button small radius success">Save Game</a>
           <a class="button small radius alert">Reset Game</a>
           <div class="switch round">
-            <p>Enable error checking:</p>
+            <p>Turn error checking on/off:</p>
             <input id="on-off" type="checkbox">
             <label for="on-off">
               <span class="switch-on">ON</span>

@@ -64,3 +64,7 @@ hr {
   border: solid #111;
   border-width: 2px 0 0;
 }
+
+.time {
+  cursor: pointer;
+}
