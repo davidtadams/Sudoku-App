@@ -55,9 +55,6 @@ Game.renderBoard();
 //by default load difficulty easy
 Game.loadDifficulty('easy');
 
-// For debugging
-// window.setTimeout(main, 5000);
-
 var FPS = 30;
 setInterval(function() {
   Game.renderBoard();

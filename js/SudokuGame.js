@@ -9,7 +9,6 @@ function SudokuGame() {
   this.reqData = null,
   this.ctx = ctx,
   this.count = 0,
-  this.errorCheck = false,
   this.errorDisplayed = false,
   this.displayAllErrors = false,
   this.showSolution = false;
@@ -34,6 +33,7 @@ function SudokuGame() {
 SudokuGame.prototype.resetGame = function() {
   this.errors = [];
   this.count = 0;
+  this.errorDisplayed = false;
   this.displayAllErrors = false;
   this.showSolution = false;
   this.finished = false;
@@ -54,6 +54,7 @@ SudokuGame.prototype.loadDifficulty = function(difficulty) {
   //start timer
   Game.timer.start = Math.floor(Date.parse(new Date()) / 1000);
 };
+
 
 SudokuGame.prototype.setButtonDifficulty = function(difficulty) {
   var easy = $('.easy');
