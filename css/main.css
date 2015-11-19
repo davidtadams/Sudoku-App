@@ -27,11 +27,23 @@ main footer {
   font-weight: bold;
 }
 
-.panel a {
+.button-wrapper {
+  display: flex;
+}
+
+.button-wrapper a {
+  width: 100px;
+  margin-left: 20px;
+  flex-direction: column;
+}
+
+
+
+/*.panel a {
   display: block;
   width: 150px;
   margin-left: 40px;
-}
+}*/
 
 .switch-on {
   position: absolute;
@@ -50,7 +62,6 @@ main footer {
   font-weight: bold;
   font-size: 9px;
 }
-
 
 .alert-box {
   width: 500px;

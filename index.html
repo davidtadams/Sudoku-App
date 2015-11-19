@@ -62,10 +62,20 @@
             <li>Click on timer to pause it</li>
           </ul>
           <h5>Options:</h5>
-          <a class="button small radius view-solution">View Solution</a>
-          <a class="button small radius success save-game">Save Game</a>
-          <a class="button small radius alert reset-game">Reset Board</a>
-          <a class="button small radius info new-puzzle">New Puzzle</a>
+          <div class="button-wrapper">
+            <div class="buton-row">
+              <a class="button small radius view-solution">View Solution</a>
+              <a class="button small radius success save-game">Save Game</a>
+        </div>
+        <div class="buton-row">
+            <a class="button small radius alert reset-game">Reset Board</a>
+
+              <a class="button small radius alert delete-game">Delete Game</a>
+            </div>
+            <div class="buton-row">
+              <a class="button small radius info new-puzzle">New Puzzle</a>
+            </div>
+          </div>
           <div class="switch round">
             <p>Turn error checking on/off:</p>
             <input id="on-off" type="checkbox">
