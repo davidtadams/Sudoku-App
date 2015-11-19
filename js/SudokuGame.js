@@ -9,6 +9,9 @@ function SudokuGame() {
   this.ctx = ctx,
   this.count = 0,
   this.errorCheck = false,
+  this.displayAllErrors = false,
+  this.showSolution = false;
+  this.finished = false;
   this.difficulty = null,
   this.puzNumber = null,
   this.timer = {
@@ -23,6 +26,18 @@ function SudokuGame() {
     value: null,
     user: null
   }
+}
+
+
+SudokuGame.prototype.resetGame = function() {
+  this.displayAllErrors = false;
+  this.count = 0;
+  this.showSolution = false;
+  this.selected.x = 4;
+  this.selected.y = 4;
+  this.selected.box = 5;
+  this.selected.value = null;
+  this.selected.user = null;
 }
 
 
@@ -178,6 +193,7 @@ SudokuGame.prototype.renderBoard = function() {
   this.drawOuterLines();
   this.drawGameNumbers();
   this.drawUserNumbers();
+  this.checkFinished();
 }
 
 
@@ -268,15 +284,15 @@ SudokuGame.prototype.toggleTimer = function() {
 }
 
 
-SudokuGame.prototype.resetGame = function() {
+SudokuGame.prototype.resetBoard = function() {
   this.resetUserBoard();
   this.timer.start = Math.floor(Date.parse(new Date()) / 1000);
   this.timer.seconds = 0;
+  this.showSolution = false;
 }
 
 
 SudokuGame.prototype.viewSolution = function() {
-  console.log(this);
   for (var i = 0; i < 9; i++) {
     for (var j = 0; j < 9; j++) {
       if (this.reqData.board[i][j] == null) {
@@ -284,10 +300,72 @@ SudokuGame.prototype.viewSolution = function() {
       }
     }
   }
+  this.showMessage('solution');
+  this.showSolution = true;
 }
 
 
+SudokuGame.prototype.checkFinished = function() {
+  if (this.count >= 81 && !this.showSolution && !this.finished) {
+    this.checkSolution();
+    if (this.checkSolution()) {
+      this.showMessage('finished');
+      this.finished = true;
+    }
+    else {
+      this.displayAllErrors = true;
+      this.showMessage('error');
+    }
+  }
 
+  this.count = 0;
+}
+
+
+SudokuGame.prototype.checkSolution = function() {
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 0; j++) {
+      if (this.userBoard[i][j] != this.reqData.solution[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+
+SudokuGame.prototype.showMessage = function(status) {
+  var message = "";
+  var alertType = "";
+  var html = "";
+
+  if (status === "solution") {
+    alertType = "warning";
+    message = "Since you chose to view the solution, you can keep playing " +
+          "the game, but it will not register as being successfully solved.";
+  }
+  else if (status === "finished") {
+    alertType = "success";
+    message = "Congratulations! You solved the puzzle! Now pick another " +
+          "one and play again.";
+  }
+  else if (status === "error") {
+    alertType = "alert";
+    message = "Oops. There are errors in your answer. You can see what " +
+      "cells are wrong below.";
+  }
+
+  if (message != "" && alertType != "") {
+    html = '<div data-alert class="alert-box radius ' + alertType + '">';
+    html += message;
+    html += '<a href="#" class="close">&times;</a>';
+    html += '</div>';
+
+    $('.message').empty();
+    $('.message').append(html);
+    $(document).foundation('alert', 'reflow');
+  }
+}
 
 
 
@@ -311,7 +389,7 @@ $('.time').click(function() {
 });
 
 $('.reset-game').click(function() {
-  Game.resetGame();
+  Game.resetBoard();
 });
 
 $('.view-solution').click(function() {

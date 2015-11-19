@@ -23,11 +23,7 @@ main footer {
   width: 350px;
 }
 
-.panel h4 {
-  font-weight: bold;
-}
-
-.panel h6 {
+.panel h5 {
   font-weight: bold;
 }
 
