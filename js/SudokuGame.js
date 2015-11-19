@@ -306,6 +306,9 @@ SudokuGame.prototype.resetBoard = function() {
   this.timer.seconds = 0;
   this.showSolution = false;
   this.finished = false;
+  var message = '"Reset Board" erases everything you\'ve done. '
+      + 'If that\'s not what you wanted, then don\'t click that button.';
+  this.showMessage(message, 'alert');
 };
 
 
@@ -317,7 +320,10 @@ SudokuGame.prototype.viewSolution = function() {
       }
     }
   }
-  this.showMessage('solution');
+
+  var message = "Since you chose to view the solution, you can keep playing " +
+        "the game, but it will not register as being successfully solved.";
+  this.showMessage(message, 'warning');
   this.showSolution = true;
 };
 
@@ -325,7 +331,9 @@ SudokuGame.prototype.viewSolution = function() {
 SudokuGame.prototype.checkFinished = function() {
   if (this.count >= 81 && !this.showSolution && !this.finished) {
     if (this.checkSolution()) {
-      this.showMessage('finished');
+      var message = "Congratulations! You solved the puzzle! Now pick another " +
+            "one and play again.";
+      this.showMessage(message, 'success');
       this.finished = true;
       this.toggleTimer();
       this.displayAllErrors = false;
@@ -333,7 +341,10 @@ SudokuGame.prototype.checkFinished = function() {
     else {
       this.displayAllErrors = true;
       if (!this.errorDisplayed) {
-        this.showMessage('error');
+        var message = "Oops. There are errors in your answer. You can see what " +
+          "cells are wrong below.";
+        this.showMessage(message, 'alert');
+        this.errorDisplayed = true;
       }
     }
   }
@@ -369,36 +380,16 @@ SudokuGame.prototype.checkErrors = function() {
 };
 
 
-SudokuGame.prototype.showMessage = function(status) {
-  var message = "";
-  var alertType = "";
+SudokuGame.prototype.showMessage = function(msg, type) {
   var html = "";
-
-  if (status === "solution") {
-    alertType = "warning";
-    message = "Since you chose to view the solution, you can keep playing " +
-          "the game, but it will not register as being successfully solved.";
-  }
-  else if (status === "finished") {
-    alertType = "success";
-    message = "Congratulations! You solved the puzzle! Now pick another " +
-          "one and play again.";
-  }
-  else if (status === "error") {
-    alertType = "alert";
-    message = "Oops. There are errors in your answer. You can see what " +
-      "cells are wrong below.";
-    this.errorDisplayed = true;
-  }
-
-  if (message != "" && alertType != "") {
-    html = '<div data-alert class="alert-box radius ' + alertType + '">';
-    html += message;
+  if (msg != "" && type != "") {
+    html = '<div data-alert class="alert-box radius ' + type + '">';
+    html += msg;
     html += '<a href="#" class="close">&times;</a>';
     html += '</div>';
 
     $('.message').empty();
-    $('.message').append(html);
+    $(html).appendTo('.message').delay(10000).fadeOut();
     $(document).foundation('alert', 'reflow');
   }
 };
@@ -429,7 +420,8 @@ SudokuGame.prototype.toggleErrorCheck = function() {
 
 SudokuGame.prototype.localSaveGame = function() {
   localStorage.setItem('game', JSON.stringify(this));
-
+  var message = "Current game state saved successfully.";
+  this.showMessage(message, 'success');
 }
 
 
