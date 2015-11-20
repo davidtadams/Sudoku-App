@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku</title>
+    <link rel="icon" href="sudoku.ico">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/foundation.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -59,7 +60,7 @@
             <li>Mouse Clicks -> Navigate</li>
             <li>1-9 -> Enter Number</li>
             <li>Back, Esc, Del, 0, Space -> Delete</li>
-            <li>Click on timer to pause it</li>
+            <li>Click on the timer to pause it</li>
           </ul>
           <h5>Options:</h5>
           <a class="button small radius view-solution">View Solution</a>
@@ -86,7 +87,66 @@
           <h1>Instructions</h1>
         </header>
         <main>
-          <p>This will be the instructions</p>
+          <h4>Welcome to my Sudoku Game!</h4>
+          <h3>Sudoku Rules</h3>
+          <ul class="">
+            <li>Every board has 9 regions, each with 9 cells</li>
+            <li>Each individual region must contain the numbers 1-9</li>
+            <li>Each row on the board must contain the numbers 1-9</li>
+            <li>Each column on the board must also contain the numbers 1-9</li>
+            <li>Thus, the board can only contain the number 1 through 9</li>
+            <li>Pretty simple right? Play on!</li>
+          </ul>
+          <h3>Navigating the page</h3>
+          <ul class="no-bullet">
+            <li>You can navigate around the board with your arrow keys
+            or click on a cell to select it. Tip: You normally have to click on a
+            cell on the board before you can use the arrow keys.</li>
+            <li>In order to enter in a number, all you have to do is type that
+            number on your keyboad.</li>
+            <li>If you enter a number by mistake or want to change a number, then
+            you can hit the Backspace, Escape, Delete, 0, or Space keys in order
+            to delete that number. Just navigate to the cell you want to delete
+            and then delete it.</li>
+            <li>There is a timer that automatically starts for you. If the timer
+            makes you too anxious, you can just click on it and it will stop.</li>
+          </ul>
+          <h3>Features</h3>
+          <ul>
+            <li>By default, an easy puzzle is loaded. In order to change puzzle
+            difficulties, use the top easy, medium, and hard buttons.</li>
+            <li>At any time, you can click the view solution button to view the
+            solution for the current puzzle.</li>
+            <li>If you make mistakes or just want to start over, you can
+            click the reset board button. WARNING! This will clear the board
+            and delete your progress.</li>
+            <li>If you want to save a game and resume it later, you can click
+            the save game button. Then, when you come back to the site, you will
+            see a prompt asking you if you want to resume your game. If you
+            want to resume it, just click yes at that prompt.</li>
+            <li>If you have no intention of resuming your saved game and want
+            that prompt to go away, just click delete game.</li>
+            <li>If you want to try out a new puzzle of the same difficulty that
+            you are currently on, you can click new puzzle.</li>
+            <li>At any point during your game, you can switch on live error
+            checking. This will highlight any errors that you make or have made
+            with a red box. You can just leave it on or use it to periodically
+            check your status.</li>
+            <li>When you complete a puzzle, an alert will tell you whether or not
+            your solution is correct.</li>
+            <li>All of the alerts that show up in the site will disable after a
+            couple of seconds.</li>
+            <li>The number status bar under the board will change colors for
+            numbers that have been completed in the puzzle. Meaning there are no
+            more of those numbers to enter.</li>
+            <li>All of the puzzles are randomly pulled from an API that I created.</li>
+          </ul>
+          <p>This application was created as my first major project while attending
+            <a href="http://www.galvanize.com/courses/full-stack/">Galvanize's Full Stack Program.</a>
+            The goal of the project was to practice front-end development. The
+            application was made over a period of 4 days.
+          </p>
+          <p>Github: <a href="https://github.com/davidtadams/Sudoku-App" target="_blank">davidtadams</a></p>
         </main>
       </section>
     </footer>

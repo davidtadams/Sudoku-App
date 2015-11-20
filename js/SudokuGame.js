@@ -441,7 +441,7 @@ SudokuGame.prototype.localSaveGame = function() {
 SudokuGame.prototype.localDeleteGame = function() {
   localStorage.removeItem('game', JSON.stringify(this));
   var message = "Saved game successfully deleted.";
-  this.showMessage(message, 'success');
+  this.showMessage(message, 'default');
 }
 
 
