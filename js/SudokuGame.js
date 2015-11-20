@@ -491,8 +491,7 @@ SudokuGame.prototype.localLoadGame = function() {
 
   //Update dynamic items on page
   $('.puzzle-header').text('Puzzle: ' + this.difficulty + ' #' + this.puzNumber);
-  var diffLower = this.difficulty[0].toLowerCase() + this.difficulty.slice(1);
-  this.setButtonDifficulty(diffLower);
+  this.setButtonDifficulty(Game.reqData.difficulty);
 
   console.log('diffs', savedDifficulty, this.difficulty);
   console.log('nums', savedPuzNumber, this.puzNumber);
@@ -567,6 +566,10 @@ $('.delete-game').click(function() {
 
 $('.reset-game').click(function() {
   Game.resetBoard();
+});
+
+$('.new-puzzle').click(function() {
+  Game.loadDifficulty(Game.reqData.difficulty);
 });
 
 $('.on-off').click(function() {
