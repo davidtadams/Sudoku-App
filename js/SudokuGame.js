@@ -438,6 +438,13 @@ SudokuGame.prototype.localSaveGame = function() {
 }
 
 
+SudokuGame.prototype.localDeleteGame = function() {
+  localStorage.removeItem('game', JSON.stringify(this));
+  var message = "Saved game successfully deleted.";
+  this.showMessage(message, 'success');
+}
+
+
 SudokuGame.prototype.checkSavedGame = function() {
   if (localStorage['game'] != undefined) {
     var savedDifficulty = JSON.parse(localStorage.getItem('game'));
@@ -553,6 +560,10 @@ $('.view-solution').click(function() {
 
 $('.save-game').click(function() {
   Game.localSaveGame();
+});
+
+$('.delete-game').click(function() {
+  Game.localDeleteGame();
 });
 
 $('.reset-game').click(function() {

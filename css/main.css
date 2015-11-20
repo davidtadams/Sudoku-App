@@ -32,6 +32,10 @@ main footer {
   margin-left: 20px;
 }
 
+.switch.round label {
+  margin-left: 20px;
+}
+
 .switch-on {
   position: absolute;
   left: -55px;
