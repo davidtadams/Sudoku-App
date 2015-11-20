@@ -519,9 +519,8 @@ SudokuGame.prototype.localLoadGame = function() {
 
 SudokuGame.prototype.updateStatusBar = function() {
   for(var i = 0; i < this.numStatus.length; i++) {
-    var selector = "";
+    var selector = '.number-' + (i + 1);
     if (this.numStatus[i] === 9) {
-      selector = '.number-' + (i + 1);
       if (!$(selector).hasClass('success')) {
         $(selector).removeClass('info');
         $(selector).addClass('success');
