@@ -53,6 +53,8 @@ SudokuGame.prototype.renderBoard = function() {
   this.ctx.fillStyle = "rgb(255,255,255)";
   this.ctx.fillRect(0, 0, 540, 540);
 
+  this.drawBoxHighlights();
+  this.drawVertHorzHighlights();
   if (this.displayAllErrors) {
     this.highlightErrors();
   }
@@ -60,9 +62,7 @@ SudokuGame.prototype.renderBoard = function() {
     this.checkErrors();
     this.highlightErrors();
   }
-  this.drawBoxHighlights();
-  this.drawVertHorzHighlights();
-  this.drawSelectionBox();
+  12this.drawSelectionBox();
   this.drawInnerLines();
   this.drawOuterLines();
   this.drawGameNumbers();
