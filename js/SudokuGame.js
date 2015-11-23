@@ -60,6 +60,8 @@ SudokuGame.prototype.renderBoard = function() {
     this.checkErrors();
     this.highlightErrors();
   }
+  this.drawBoxHighlights();
+  this.drawVertHorzHighlights();
   this.drawSelectionBox();
   this.drawInnerLines();
   this.drawOuterLines();
@@ -146,6 +148,45 @@ SudokuGame.prototype.drawSelectionBox = function() {
   var yCord = this.selected.y * 60;
   this.ctx.fillRect(xCord, yCord, 60, 60);
 };
+
+
+SudokuGame.prototype.drawBoxHighlights = function() {
+  this.ctx.fillStyle = "rgb(215,225,252)";
+  var xCord;
+  var yCord;
+
+  if (this.selected.box % 3 === 1) {
+    xCord = 0;
+  }
+  else if (this.selected.box % 3 === 2) {
+    xCord = 180;
+  }
+  else {
+    xCord = 360;
+  }
+
+  if (this.selected.box > 6) {
+    yCord = 360;
+  }
+  else if (this.selected.box > 3) {
+    yCord = 180;
+  }
+  else {
+    yCord = 0;
+  }
+
+  this.ctx.fillRect(xCord, yCord, 180, 180);
+};
+
+
+SudokuGame.prototype.drawVertHorzHighlights = function() {
+  this.ctx.fillStyle = "rgb(215,225,252)";
+  var xCord = this.selected.x;
+  var yCord = this.selected.y;
+  this.ctx.fillRect(xCord * 60, 0, 60, 540);
+  this.ctx.fillRect(0, yCord * 60, 540, 60);
+};
+
 
 
 SudokuGame.prototype.drawInnerLines = function() {
