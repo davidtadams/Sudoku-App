@@ -62,7 +62,7 @@ SudokuGame.prototype.renderBoard = function() {
     this.checkErrors();
     this.highlightErrors();
   }
-  12this.drawSelectionBox();
+  this.drawSelectionBox();
   this.drawInnerLines();
   this.drawOuterLines();
   this.drawGameNumbers();
