@@ -534,20 +534,13 @@ SudokuGame.prototype.localLoadGame = function() {
   $('.puzzle-header').text('Puzzle: ' + this.difficulty + ' #' + this.puzNumber);
   this.setButtonDifficulty(Game.reqData.difficulty);
 
-  console.log('diffs', savedDifficulty, this.difficulty);
-  console.log('nums', savedPuzNumber, this.puzNumber);
-
   //update timer to state from saved game to restore it
   if (savedDifficulty === this.difficulty
               && savedPuzNumber === this.puzNumber) {
     /* game that was being played when browser closed was same game
       that was saved to local storage, so restore timer */
-      console.log("DOES THIS RUN?");
       var seconds = localStorage.getItem('seconds');
-      console.log('sec1', seconds);
-      console.log('stat1', this.timer.start);
       this.timer.start = Math.floor(Date.parse(new Date()) / 1000) - seconds;
-      console.log('stat2', this.timer.start);
   }
   else {
     /* reset timer back to 0 */
