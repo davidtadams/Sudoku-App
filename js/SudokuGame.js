@@ -567,45 +567,45 @@ SudokuGame.prototype.updateStatusBar = function() {
 }
 
 
+$(document).ready(function() {
+  /* DOM EVENT LISTENERS */
+  $('.easy').click(function() {
+    Game.loadDifficulty('easy');
+  });
 
+  $('.medium').click(function() {
+    Game.loadDifficulty('medium');
+  });
 
-/* DOM EVENT LISTENERS */
-$('.easy').click(function() {
-  Game.loadDifficulty('easy');
-});
+  $('.hard').click(function() {
+    Game.loadDifficulty('hard');
+  });
 
-$('.medium').click(function() {
-  Game.loadDifficulty('medium');
-});
+  $('.time').click(function() {
+    Game.toggleTimer();
+  });
 
-$('.hard').click(function() {
-  Game.loadDifficulty('hard');
-});
+  $('.view-solution').click(function() {
+    Game.viewSolution();
+  });
 
-$('.time').click(function() {
-  Game.toggleTimer();
-});
+  $('.save-game').click(function() {
+    Game.localSaveGame();
+  });
 
-$('.view-solution').click(function() {
-  Game.viewSolution();
-});
+  $('.delete-game').click(function() {
+    Game.localDeleteGame();
+  });
 
-$('.save-game').click(function() {
-  Game.localSaveGame();
-});
+  $('.reset-game').click(function() {
+    Game.resetBoard();
+  });
 
-$('.delete-game').click(function() {
-  Game.localDeleteGame();
-});
+  $('.new-puzzle').click(function() {
+    Game.loadDifficulty(Game.reqData.difficulty);
+  });
 
-$('.reset-game').click(function() {
-  Game.resetBoard();
-});
-
-$('.new-puzzle').click(function() {
-  Game.loadDifficulty(Game.reqData.difficulty);
-});
-
-$('.on-off').click(function() {
-  Game.toggleErrorCheck();
+  $('.on-off').click(function() {
+    Game.toggleErrorCheck();
+  });
 });
